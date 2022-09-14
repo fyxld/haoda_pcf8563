@@ -1,6 +1,6 @@
 {
     "name": "pxt-PCF8563",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "description": "Extension for PCF8563 RTC",
     "dependencies": {
         "core": "*",
