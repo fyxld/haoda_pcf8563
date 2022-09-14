@@ -1,22 +1,19 @@
 {
-    "name": "pxt-PCF8563",
-    "version": "0.0.4",
+    "name": "PCF8563",
+    "version": "0.0.5",
     "description": "Extension for PCF8563 RTC",
+    "license": "MIT",
     "dependencies": {
         "core": "*"
     },
     "files": [
-        "main.ts",
         "README.md",
-        "enums.d.ts",
         "_locales/zh/PCF8563-strings.json"
+        "enums.d.ts",
+        "pcf8563.ts",
     ],
     "testFiles": [
         "test.ts"
     ],
-    "supportedTargets": [
-        "microbit"
-    ],
     "public": true,
-    "preferredEditor": "tsprj"
 }
