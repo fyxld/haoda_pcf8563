@@ -189,7 +189,7 @@ namespace PCF8563 {
     }
     let pHaodaPCF8563: PCF8563Method = null;
 	
-    //% blockId="PCF8563_Begin" block="PCF8563 initialize %addr"
+    //% blockId="PCF8563_Begin" block="PCF8563 initialize |%addr"
     //% weight=43 blockGap=8
     //% parts="PCF8563"
     export function Begin(addr: number) {
@@ -199,21 +199,21 @@ namespace PCF8563 {
         }
     }
 	
-    //% blockId="PCF8563_setTime" block="PCF8563 set Time Hour %hour|Minute %minute|Second %second"
+    //% blockId="PCF8563_setTime" block="PCF8563 set Time|Hour %hour|Minute %minute|Second %second"
     //% weight=43 blockGap=8
     //% parts="PCF8563"
     export function setTime(hour:number,minute:number,second:number){
 	pHaodaPCF8563.setTime(hour,minute,second);
     }
 	
-    //% blockId="PCF8563_setDate" block="PCF8563 set Date Year %year|Month %month|Day %day"
+    //% blockId="PCF8563_setDate" block="PCF8563 set Date|Year %year|Month %month|Day %day"
     //% weight=43 blockGap=8
     //% parts="PCF8563"
     export function setDate(year:number,month:number,day:number){
 	pHaodaPCF8563.setDate(year,month,day);
     }
 
-    //% blockId="PCF8563_get" block="PCF8563 get %rtc_type"
+    //% blockId="PCF8563_get" block="PCF8563 get|%rtc_type"
     //% weight=43 blockGap=8
     //% parts="PCF8563"
     export function get(rtc_type:pcf8563_type_e): number{
