@@ -183,8 +183,8 @@ namespace PCF8563 {
     }
 	let pHaodaPCF8563: PCF8563Method = null;
 	
-	//% weight=40
-    //% blockId=PCF8563_begin block="initialize PCF8563 addr%addr"
+    //% weight=40
+    //% blockId=PCF8563_begin block="PCF8563 initialize|%addr"
 	export function Begin(addr: number) {
         if (pHaodaPCF8563 == null) {
             pHaodaPCF8563 = new PCF8563Method(addr)
@@ -192,20 +192,20 @@ namespace PCF8563 {
         }
     }
 	
-	//% weight=40
-    //% blockId=PCF8563_setTime block="set Time hour%hour | minute%minute | second%second"
-	export function setTime(hour:number,minute:number,second:number){
+    //% weight=40
+    //% blockId=PCF8563_setTime block="PCF8563 set Time|%hour|minute|%minute|second|%second"
+    export function setTime(hour:number,minute:number,second:number){
 		pHaodaPCF8563.setTime(hour,minute,second);
     }
 	
-	//% weight=40
-    //% blockId=PCF8563_setDate block="set Date year%year | month%month | day%day"
-	export function setDate(year:number,month:number,day:number){
+    //% weight=40
+    //% blockId=PCF8563_setDate block="PCF8563 set Date|%year|month|%month|day|%day"
+    export function setDate(year:number,month:number,day:number){
 		pHaodaPCF8563.setDate(year,month,day);
     }
 	
-	//% weight=40
-    //% blockId=PCF8563_get block="get rtc_type%rtc_type"
+    //% weight=40
+    //% blockId=PCF8563_get block="PCF8563 get|%rtc_type"
     export function get(rtc_type:pcf8563_type_e): number{
 		return pHaodaPCF8563.get(rtc_type);
     }
