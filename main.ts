@@ -64,27 +64,27 @@ namespace PCF8563 {
         century: number;
 
         constructor(addr: number) {
-            this._address = addr
+            this._address = addr;
         }
 
         Begin(): number {
             this._stream = new PCF8563I2CMethod();
-            this._stream.address = this._address
-            this._stream.Set(0x00, 0x00)     //control/status1
-            this._stream.Set(0x01, 0x00)     //control/status2
-            this._stream.Set(0x02, 0x81)     //set seconds & VL
-            this._stream.Set(0x03, 0x01)     //set minutes
-            this._stream.Set(0x04, 0x01)     //set hour
-            this._stream.Set(0x05, 0x01)     //set day
-            this._stream.Set(0x06, 0x01)     //set weekday
-            this._stream.Set(0x07, 0x01)     //set month, century to 1
-            this._stream.Set(0x08, 0x01)     //set year to 99
-            this._stream.Set(0x09, 0x80)     //minute alarm value reset to 00
-            this._stream.Set(0x0A, 0x80)     //hour alarm value reset to 00
-            this._stream.Set(0x0B, 0x80)     //day alarm value reset to 00
-            this._stream.Set(0x0C, 0x80)     //weekday alarm value reset to 00
-            this._stream.Set(0x0D, 0x00)     //set SQW, see: setSquareWave
-            this._stream.Set(0x0E, 0x00)     //timer off
+            this._stream.address = this._address;
+            this._stream.Set(0x00, 0x00);     //control/status1
+            this._stream.Set(0x01, 0x00);     //control/status2
+            this._stream.Set(0x02, 0x81);     //set seconds & VL
+            this._stream.Set(0x03, 0x01);     //set minutes
+            this._stream.Set(0x04, 0x01);     //set hour
+            this._stream.Set(0x05, 0x01);     //set day
+            this._stream.Set(0x06, 0x01);     //set weekday
+            this._stream.Set(0x07, 0x01);     //set month, century to 1
+            this._stream.Set(0x08, 0x01);     //set year to 99
+            this._stream.Set(0x09, 0x80);     //minute alarm value reset to 00
+            this._stream.Set(0x0A, 0x80);     //hour alarm value reset to 00
+            this._stream.Set(0x0B, 0x80);     //day alarm value reset to 00
+            this._stream.Set(0x0C, 0x80);     //weekday alarm value reset to 00
+            this._stream.Set(0x0D, 0x00);     //set SQW, see: setSquareWave
+            this._stream.Set(0x0E, 0x00);     //timer off
             return PCF8563_OK;
         }
 
@@ -94,10 +94,10 @@ namespace PCF8563 {
             this.status1 = this._stream.Get(0x00);
             this.status2 = this._stream.Get(0x01);
             this.sec =this.bcdToDec(this._stream.Get(0x02)&~0x80);
-            this.minute = this.bcdToDec(this._stream.Get(0x03) & 0x7f)
-            this.hour = this.bcdToDec(this._stream.Get(0x04) & 0x3f)
-            this.day = this.bcdToDec(this._stream.Get(0x05) & 0x3f)
-            this.weekday = this.bcdToDec(this._stream.Get(0x06) & 0x07)
+            this.minute = this.bcdToDec(this._stream.Get(0x03) & 0x7f);
+            this.hour = this.bcdToDec(this._stream.Get(0x04) & 0x3f);
+            this.day = this.bcdToDec(this._stream.Get(0x05) & 0x3f);
+            this.weekday = this.bcdToDec(this._stream.Get(0x06) & 0x07);
             reg_07 = this._stream.Get(0x07);
             if(reg_07&0x80){
                 this.century = 1;
@@ -107,21 +107,21 @@ namespace PCF8563 {
             this.month = this.bcdToDec(reg_07&0x1f);
             reg_08 = this._stream.Get(0x08);
             if(this.century == 1){
-                this.year = this.bcdToDec(reg_08) + 2000
+                this.year = this.bcdToDec(reg_08) + 2000;
             }else{
-                this.year = this.bcdToDec(reg_08) + 1900
+                this.year = this.bcdToDec(reg_08) + 1900;
             }
         }
 
 
         setDateTime(year:number,month:number,day:number,weekday:number,hour:number,minute:number,second:number){
-            month = this.decToBcd(month)
+            month = this.decToBcd(month);
             if(year>=2000){
                 month &= ~0x80;
-                year -= 2000
+                year -= 2000;
             }else{
-                month |= 0x80
-                year -= 1900
+                month |= 0x80;
+                year -= 1900;
             }
             this._stream.Set(0x02, (this.decToBcd(second)&~0x80)); //set sec, clear VL bit
             this._stream.Set(0x02, this.decToBcd(minute));
@@ -155,22 +155,22 @@ namespace PCF8563 {
             }else if(rtc_type == 4){
                 return this.weekday;
             }else if(rtc_type == 5){
-                return this.hour
+                return this.hour;
             }else if(rtc_type ==6){
                 return this.minute
             }else if(rtc_type == 7){
-                return this.sec
+                return this.sec;
             }else{
                 return 0;
             }
         }
 
         decToBcd(val: number): number {
-            return ((val/10*16)+(val%10))
+            return ((val/10*16)+(val%10));
         }
 
         bcdToDec(val: number): number {
-            return ((val/16*10)+(val%16))
+            return ((val/16*10)+(val%16));
         }
 
         whatWeekday(year:number,month:number,day:number){
@@ -178,7 +178,7 @@ namespace PCF8563 {
             if(month < 3){
                 year = year - 1;
             }
-            return ((year + year/4 - year/100 + year/400 + trans[month-1] + day) % 7)
+            return ((year + year/4 - year/100 + year/400 + trans[month-1] + day) % 7);
         }
     }
 }
