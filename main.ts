@@ -1,6 +1,3 @@
-/**
- * PCF8563 block
- */
 //% weight=20 color=#b77ff0 icon="\uf017" block="PCF8563"
 namespace PCF8563 {
     const PCF8563_STAT1_ADDR = 0x0
@@ -181,30 +178,26 @@ namespace PCF8563 {
             return ((year + year/4 - year/100 + year/400 + trans[month-1] + day) % 7);
         }
     }
-	let pHaodaPCF8563: PCF8563Method = null;
+    let pHaodaPCF8563: PCF8563Method = null;
 	
-    //% weight=40
     //% blockId=PCF8563_begin block="PCF8563 initialize|%addr"
-	export function Begin(addr: number) {
+    export function Begin(addr: number) {
         if (pHaodaPCF8563 == null) {
             pHaodaPCF8563 = new PCF8563Method(addr)
             pHaodaPCF8563.Begin();
         }
     }
 	
-    //% weight=40
     //% blockId=PCF8563_setTime block="PCF8563 set Time|%hour|minute|%minute|second|%second"
     export function setTime(hour:number,minute:number,second:number){
 		pHaodaPCF8563.setTime(hour,minute,second);
     }
 	
-    //% weight=40
     //% blockId=PCF8563_setDate block="PCF8563 set Date|%year|month|%month|day|%day"
     export function setDate(year:number,month:number,day:number){
 		pHaodaPCF8563.setDate(year,month,day);
     }
-	
-    //% weight=40
+
     //% blockId=PCF8563_get block="PCF8563 get|%rtc_type"
     export function get(rtc_type:pcf8563_type_e): number{
 		return pHaodaPCF8563.get(rtc_type);
