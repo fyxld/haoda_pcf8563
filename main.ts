@@ -189,11 +189,11 @@ namespace PCF8563 {
         }
     }
 
-	export function setTime(hour:number,minute:number,second:number){
+    export function setTime(hour:number,minute:number,second:number){
 		pHaodaPCF8563.setTime(hour,minute,second);
     }
 	
-	export function setDate(year:number,month:number,day:number){
+     export function setDate(year:number,month:number,day:number){
 		pHaodaPCF8563.setDate(year,month,day);
     }
 	
