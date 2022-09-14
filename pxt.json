@@ -8,12 +8,12 @@
     },
     "files": [
         "README.md",
-        "_locales/zh/PCF8563-strings.json"
+        "_locales/zh/PCF8563-strings.json",
         "enums.d.ts",
-        "pcf8563.ts",
+        "pcf8563.ts"
     ],
     "testFiles": [
         "test.ts"
     ],
-    "public": true,
+    "public": true
 }
