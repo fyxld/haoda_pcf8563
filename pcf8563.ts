@@ -1,4 +1,13 @@
-//% weight=20 color=#b77ff0 icon="\uf017" block="PCF8563"
+/**
+* makecode PCF8263 RTC Package.
+* From microbit/micropython Chinese community.
+* http://www.micropython.org.cn
+*/
+
+/**
+ * PCF8563 block
+ */
+//% weight=100 color=#A040E0 icon="\uf017" block="RTC PCF8563"
 namespace PCF8563 {
     const PCF8563_STAT1_ADDR = 0x0
     const PCF8563_STAT2_ADDR = 0x01
@@ -180,7 +189,8 @@ namespace PCF8563 {
     }
     let pHaodaPCF8563: PCF8563Method = null;
 	
-    //% blockId=PCF8563_begin block="PCF8563 initialize|%addr"
+    //% blockId="PCF8563_begin" block="PCF8563 initialize %addr"
+    //% weight=43 blockGap=8
     export function Begin(addr: number) {
         if (pHaodaPCF8563 == null) {
             pHaodaPCF8563 = new PCF8563Method(addr)
@@ -188,17 +198,20 @@ namespace PCF8563 {
         }
     }
 	
-    //% blockId=PCF8563_setTime block="PCF8563 set Time|%hour|minute|%minute|second|%second"
+    //% blockId="PCF8563_setTime" block="PCF8563 set Time: Hour %hour|Minute %minute|Second %second"
+    //% weight=43 blockGap=8
     export function setTime(hour:number,minute:number,second:number){
 		pHaodaPCF8563.setTime(hour,minute,second);
     }
 	
-    //% blockId=PCF8563_setDate block="PCF8563 set Date|%year|month|%month|day|%day"
+    //% blockId="PCF8563_setDate" block="PCF8563 set Date:Year %year|Month %month|Day %day"
+	//% weight=43 blockGap=8
     export function setDate(year:number,month:number,day:number){
 		pHaodaPCF8563.setDate(year,month,day);
     }
 
-    //% blockId=PCF8563_get block="PCF8563 get|%rtc_type"
+    //% blockId="PCF8563_get" block="PCF8563 get %rtc_type"
+	//% weight=43 blockGap=8
     export function get(rtc_type:pcf8563_type_e): number{
 		return pHaodaPCF8563.get(rtc_type);
     }
