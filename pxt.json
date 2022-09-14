@@ -2,7 +2,6 @@
     "name": "pxt-PCF8563",
     "version": "0.0.4",
     "description": "Extension for PCF8563 RTC",
-    "license": "MIT",
     "dependencies": {
         "core": "*"
     },
