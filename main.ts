@@ -184,7 +184,7 @@ namespace PCF8563 {
 	let pHaodaPCF8563: PCF8563Method = null;
 	export function Begin(addr: number) {
         if (pHaodaPCF8563 == null) {
-            pHaodaPCF8563 = new HaodaAIMethod(addr)
+            pHaodaPCF8563 = new PCF8563Method(addr)
             pHaodaPCF8563.Begin();
         }
     }
