@@ -1,5 +1,5 @@
 /**
-* makecode PCF8263 RTC Package.
+* makecode PCF8563 RTC Package.
 * From microbit/micropython Chinese community.
 * http://www.micropython.org.cn
 */
@@ -201,19 +201,19 @@ namespace PCF8563 {
     //% blockId="PCF8563_setTime" block="PCF8563 set Time: Hour %hour|Minute %minute|Second %second"
     //% weight=43 blockGap=8
     export function setTime(hour:number,minute:number,second:number){
-		pHaodaPCF8563.setTime(hour,minute,second);
+	pHaodaPCF8563.setTime(hour,minute,second);
     }
 	
     //% blockId="PCF8563_setDate" block="PCF8563 set Date:Year %year|Month %month|Day %day"
 	//% weight=43 blockGap=8
     export function setDate(year:number,month:number,day:number){
-		pHaodaPCF8563.setDate(year,month,day);
+	pHaodaPCF8563.setDate(year,month,day);
     }
 
     //% blockId="PCF8563_get" block="PCF8563 get %rtc_type"
 	//% weight=43 blockGap=8
     export function get(rtc_type:pcf8563_type_e): number{
-		return pHaodaPCF8563.get(rtc_type);
+	return pHaodaPCF8563.get(rtc_type);
     }
 }
 
