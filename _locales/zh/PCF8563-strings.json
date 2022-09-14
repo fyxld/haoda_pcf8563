@@ -1,0 +1,13 @@
+{
+    "pcf8563_type_e.kTypeYear|block": "年",
+    "pcf8563_type_e.kTypeMonth|block": "月",
+    "pcf8563_type_e.kTypeDay|block": "日",
+    "pcf8563_type_e.kTypeWeekday|block": "星期",
+    "pcf8563_type_e.kTypeHour|block": "时",
+    "pcf8563_type_e.kTypeMinute|block": "分",
+    "pcf8563_type_e.kTypeSec|block": "秒",
+    "PCF8563.Begin|block": "RTC模块PCF8563初始化|%addr",
+    "PCF8563.setDate|block": "RTC设置日期|年 %year|月 %month|日 %day",
+    "PCF8563.setTime|block": "RTC设置时间|时 %hour|分 %minute|秒 %second",
+    "PCF8563.get|block": "RTC获取|%rtc_type"
+}
