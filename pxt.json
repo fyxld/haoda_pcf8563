@@ -4,7 +4,7 @@
     "description": "Extension for PCF8563 RTC",
 	"license": "MIT",
     "dependencies": {
-        "core": "*",
+        "core": "*"
     },
     "files": [
         "main.ts",
