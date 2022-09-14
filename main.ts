@@ -87,8 +87,8 @@ namespace PCF8563 {
         }
 
         getDateTime(){
-            var reg_07:number;
-            var reg_08:number;
+            let reg_07:number;
+            let reg_08:number;
             this.status1 = this._stream.Get(0x00);
             this.status2 = this._stream.Get(0x01);
             this.sec =this.bcdToDec(this._stream.Get(0x02)&~0x80);
@@ -136,7 +136,7 @@ namespace PCF8563 {
         }
 
         setDate(year:number,month:number,day:number){
-            var week:number;
+            let week:number;
             this.getDateTime();
             week = this.whatWeekday(year,month,day);
             this.setDateTime(year, month, day, week, this.hour, this.minute, this.sec);
@@ -172,7 +172,7 @@ namespace PCF8563 {
         }
 
         whatWeekday(year:number,month:number,day:number){
-            var trans:number[] = [0,3,2,5,0,3,5,1,4,6,2,4];
+            let trans:number[] = [0,3,2,5,0,3,5,1,4,6,2,4];
             if(month < 3){
                 year = year - 1;
             }
