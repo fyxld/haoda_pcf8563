@@ -89,8 +89,8 @@ namespace PCF8563 {
         }
 
         getDateTime(){
-            var reg_07:number;
-            var reg_08:number;
+            let reg_07:number;
+            let reg_08:number;
             this.status1 = this._stream.Get(0x00);
             this.status2 = this._stream.Get(0x01);
             this.sec =this.bcdToDec(this._stream.Get(0x02)&~0x80);
@@ -132,19 +132,19 @@ namespace PCF8563 {
             this._stream.Set(0x02, this.decToBcd(year));
         }
 
-        export function setTime(hour:number,minute:number,second:number){
+        setTime(hour:number,minute:number,second:number){
             this.getDateTime();
             this.setDateTime(this.year,this.month,this.day,this.weekday,hour,minute,second);
         }
 
-        export function setDate(year:number,month:number,day:number){
-            var week:number;
+        setDate(year:number,month:number,day:number){
+            let week:number;
             this.getDateTime();
             week = this.whatWeekday(year,month,day);
             this.setDateTime(year, month, day, week, this.hour, this.minute, this.sec);
         }
         
-        export function get(rtc_type:pcf8563_type_e): number{
+        get(rtc_type:pcf8563_type_e): number{
             this.getDateTime();
             if(rtc_type == 1){
                 return this.year;
@@ -174,11 +174,34 @@ namespace PCF8563 {
         }
 
         whatWeekday(year:number,month:number,day:number){
-            var trans:number[] = [0,3,2,5,0,3,5,1,4,6,2,4];
+            let trans:number[] = [0,3,2,5,0,3,5,1,4,6,2,4];
             if(month < 3){
                 year = year - 1;
             }
             return ((year + year/4 - year/100 + year/400 + trans[month-1] + day) % 7);
         }
     }
+	let pHaodaPCF8563: PCF8563Method = null;
+	export function Begin(addr: number) {
+        if (pHaodaPCF8563 == null) {
+            pHaodaPCF8563 = new HaodaAIMethod(addr)
+            pHaodaPCF8563.Begin();
+        }
+    }
+
+	export function setTime(hour:number,minute:number,second:number){
+		pHaodaPCF8563.setTime(hour,minute,second);
+    }
+	
+	export function setDate(year:number,month:number,day:number){
+		pHaodaPCF8563.setDate(year,month,day);
+    }
+	
+    export function get(rtc_type:pcf8563_type_e): number{
+		return pHaodaPCF8563.get(rtc_type);
+    }
 }
+
+
+
+
