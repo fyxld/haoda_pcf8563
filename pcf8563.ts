@@ -119,12 +119,13 @@ namespace PCF8563 {
                 year -= 1900;
             }
             this._stream.Set(0x02, (this.decToBcd(second)&~0x80)); //set sec, clear VL bit
-            this._stream.Set(0x02, this.decToBcd(minute));
-            this._stream.Set(0x02, this.decToBcd(hour));
-            this._stream.Set(0x02, this.decToBcd(day));
-            this._stream.Set(0x02, this.decToBcd(weekday));
-            this._stream.Set(0x02, this.decToBcd(month));
-            this._stream.Set(0x02, this.decToBcd(year));
+            this._stream.Set(0x03, this.decToBcd(minute));
+            this._stream.Set(0x04, this.decToBcd(hour));
+            this._stream.Set(0x05, this.decToBcd(day));
+            this._stream.Set(0x06, this.decToBcd(weekday));
+            this._stream.Set(0x07, month);
+            this._stream.Set(0x08, this.decToBcd(year));
+            this.getDateTime();
         }
 
         setTime(hour:number,minute:number,second:number){
