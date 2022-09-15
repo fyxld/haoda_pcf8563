@@ -9,6 +9,10 @@
  */
 //% weight=100 color=#A040E0 icon="\uf017" block="PCF8563"
 namespace PCF8563 {
+    const PCF8563_ADDR = 0x51
+    const PCF8563_ADDR_W = 0xA2
+    const PCF8563_ADDR_R = 0xA3
+
     const PCF8563_STAT1_ADDR = 0x0
     const PCF8563_STAT2_ADDR = 0x01
     const PCF8563_SEC_ADDR = 0x02
@@ -23,29 +27,22 @@ namespace PCF8563 {
     const PCF8563_TIMER1_ADDR = 0x0E
     const PCF8563_TIMER2_ADDR = 0x0F
 
-    const PCF8563_OK = 0x00
-    const PCF8563_FAIL = 0x01
-    const PCF8563_UNKNOWN_PROTOCOL = 0x11
-
     class PCF8563I2CMethod {
-        address: number
         private i2cwrite(reg: number, value: number) {
             let buf = pins.createBuffer(2);
             buf[0] = reg;
             buf[1] = value;
-            let ret = pins.i2cWriteBuffer(this.address, buf);
-            return ret;
+            pins.i2cWriteBuffer(PCF8563_ADDR, buf);
         }
 
         private i2cread(reg: number) {
-            pins.i2cWriteNumber(this.address, reg, NumberFormat.UInt8BE, true);
-            let value = pins.i2cReadNumber(this.address, NumberFormat.UInt8BE);
+            pins.i2cWriteNumber(PCF8563_ADDR, reg, NumberFormat.UInt8BE, true);
+            let value = pins.i2cReadNumber(PCF8563_ADDR, NumberFormat.UInt8BE);
             return value;
         }
 
-        Set(reg_address: number, value: number): number {
+        Set(reg_address: number, value: number){
             this.i2cwrite(reg_address, value);
-            return PCF8563_OK;
         }
 
         Get(reg_address: number): number {
@@ -55,7 +52,6 @@ namespace PCF8563 {
     }
 
     class PCF8563Method {
-        _address: number;
         _stream: PCF8563I2CMethod;
 
         status1: number;
@@ -69,13 +65,8 @@ namespace PCF8563 {
         sec: number;
         century: number;
 
-        constructor(addr: number) {
-            this._address = addr;
-        }
-
-        Begin(): number {
+        Begin(){
             this._stream = new PCF8563I2CMethod();
-            this._stream.address = this._address;
             this._stream.Set(0x00, 0x00);     //control/status1
             this._stream.Set(0x01, 0x00);     //control/status2
             this._stream.Set(0x02, 0x81);     //set seconds & VL
@@ -91,7 +82,6 @@ namespace PCF8563 {
             this._stream.Set(0x0C, 0x80);     //weekday alarm value reset to 00
             this._stream.Set(0x0D, 0x00);     //set SQW, see: setSquareWave
             this._stream.Set(0x0E, 0x00);     //timer off
-            return PCF8563_OK;
         }
 
         getDateTime(){
@@ -118,7 +108,6 @@ namespace PCF8563 {
                 this.year = this.bcdToDec(reg_08) + 1900;
             }
         }
-
 
         setDateTime(year:number,month:number,day:number,weekday:number,hour:number,minute:number,second:number){
             month = this.decToBcd(month);
@@ -172,11 +161,11 @@ namespace PCF8563 {
         }
 
         decToBcd(val: number): number {
-            return ((val/10*16)+(val%10));
+            return Math.idiv(val, 10) * 16 + (val % 10);
         }
 
         bcdToDec(val: number): number {
-            return ((val/16*10)+(val%16));
+            return (val>>4)*10+(val%16);
         }
 
         whatWeekday(year:number,month:number,day:number){
@@ -189,12 +178,12 @@ namespace PCF8563 {
     }
     let pHaodaPCF8563: PCF8563Method = null;
 	
-    //% blockId="PCF8563_Begin" block="PCF8563 initialize |%addr"
+    //% blockId="PCF8563_Begin" block="PCF8563 initialize"
     //% weight=43 blockGap=8
     //% parts="PCF8563"
-    export function Begin(addr: number) {
+    export function Begin() {
         if (pHaodaPCF8563 == null) {
-            pHaodaPCF8563 = new PCF8563Method(addr)
+            pHaodaPCF8563 = new PCF8563Method();
             pHaodaPCF8563.Begin();
         }
     }
@@ -203,21 +192,21 @@ namespace PCF8563 {
     //% weight=43 blockGap=8
     //% parts="PCF8563"
     export function setTime(hour:number,minute:number,second:number){
-	pHaodaPCF8563.setTime(hour,minute,second);
+	    pHaodaPCF8563.setTime(hour,minute,second);
     }
 	
     //% blockId="PCF8563_setDate" block="PCF8563 set Date|Year %year|Month %month|Day %day"
     //% weight=43 blockGap=8
     //% parts="PCF8563"
     export function setDate(year:number,month:number,day:number){
-	pHaodaPCF8563.setDate(year,month,day);
+        pHaodaPCF8563.setDate(year,month,day);
     }
 
     //% blockId="PCF8563_get" block="PCF8563 get|%rtc_type"
     //% weight=43 blockGap=8
     //% parts="PCF8563"
     export function get(rtc_type:pcf8563_type_e): number{
-	return pHaodaPCF8563.get(rtc_type);
+        return pHaodaPCF8563.get(rtc_type);
     }
 }
 
