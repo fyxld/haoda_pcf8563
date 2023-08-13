@@ -2,10 +2,11 @@
 * makecode PCF8563 RTC Package.
 * From microbit/micropython Chinese community.
 * http://www.micropython.org.cn
+* @copyright Copyright (c) 2022 杭州好好搭搭科技有限公司
 */
 
 /**
- * PCF8563 block
+ * PCF8563 block 
  */
 //% weight=100 color=#A040E0 icon="\uf017" block="PCF8563"
 namespace PCF8563 {
